@@ -1,11 +1,20 @@
 package com.example.rentacar.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "customers")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
     @Id
     @Column(name = "id")
@@ -31,8 +40,10 @@ public class Customer {
     private String identityNumber;
 
     @OneToMany(mappedBy = "customer")// PaymentInformation classında customer attribute na mapleniyor.
+    @JsonIgnore
     private List<PaymentInformation> paymentInformations;
 
     @OneToMany(mappedBy = "customer")// Reservation classında customer attribute na mapleniyor.
+    @JsonIgnore
     private List<Reservation> reservations;
 }

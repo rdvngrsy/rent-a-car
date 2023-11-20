@@ -29,6 +29,7 @@ public class Brand {
     private List<Car> cars;
 
     @OneToMany(mappedBy = "brand")// Model classında brand attribute na mapleniyor.
+    @JsonIgnore
     private List<Model> models;
 
 }

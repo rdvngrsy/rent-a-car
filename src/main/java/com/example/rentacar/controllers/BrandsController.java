@@ -33,8 +33,14 @@ public class BrandsController {
         brandRepository.save(brand);
     }
 
-    @PutMapping
-    public void update(@RequestBody Brand brand){}
+
+    @PutMapping("{id}")
+    public void update(@PathVariable int id, @RequestBody Brand updatedBrand){
+        Brand existingBrand = brandRepository.findById(id).orElseThrow();
+        existingBrand.setName(updatedBrand.getName());
+        brandRepository.save(existingBrand);
+    }
+
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id) {

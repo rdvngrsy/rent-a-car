@@ -1,13 +1,22 @@
 package com.example.rentacar.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "payment_informations")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentInformation {
     @Id
     @Column(name = "id")
@@ -27,6 +36,7 @@ public class PaymentInformation {
     private String cardholderName;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
