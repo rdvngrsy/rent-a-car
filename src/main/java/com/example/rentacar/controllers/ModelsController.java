@@ -37,9 +37,29 @@ public class ModelsController {
         modelService.update(id, updatedModel);
     }
 
-
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id) {
         modelService.delete(id);
     }
+
+    @GetMapping("/getByNameOrderByYearDesc")
+    public List<GetModelListResponse> getByNameOrderByYearDesc(String name){
+        return modelService.getByNameOrderByYearDesc(name);
+    }
+
+    @GetMapping("/getByYearGreaterThan")
+    public List<GetModelListResponse> getByYearGreaterThan(int year) {
+        return modelService.getByYearGreaterThan(year);
+    }
+
+    @GetMapping("/getModelsByYearRange")
+    List<GetModelListResponse> getModelsByYearRange(int startYear,int endYear){
+        return modelService.getModelsByYearRange(startYear, endYear);
+    }
+
+    @GetMapping("/getOldestByModel")
+    List<GetModelListResponse> getOldestByModel(String model){
+        return modelService.getOldestByModel(model);
+    }
+
 }

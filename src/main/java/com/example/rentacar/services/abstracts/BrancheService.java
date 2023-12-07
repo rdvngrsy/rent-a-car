@@ -1,5 +1,6 @@
 package com.example.rentacar.services.abstracts;
 
+import com.example.rentacar.entities.Branche;
 import com.example.rentacar.services.dtos.requests.branche.AddBrancheRequest;
 import com.example.rentacar.services.dtos.requests.branche.UpdateBrancheRequest;
 import com.example.rentacar.services.dtos.responses.branche.GetBrancheListResponse;
@@ -13,4 +14,9 @@ public interface BrancheService {
     void add(AddBrancheRequest request);
     void update(int id, UpdateBrancheRequest updatedBranche);
     void delete(int id);
+    List<GetBrancheListResponse> getByNameFirstLetter(String letter);
+    List<GetBrancheListResponse> getByManagerBrancheInfo(String managerName);
+    List<GetBrancheListResponse> getWithNoAddress();
+    List<GetBrancheListResponse> getByAddress(String address);
+
 }

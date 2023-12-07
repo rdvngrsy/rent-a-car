@@ -71,4 +71,36 @@ public class BrancheManager implements BrancheService {
         Branche brancheToDelete = brancheRepository.findById(id).orElseThrow();
         brancheRepository.delete(brancheToDelete);
     }
+
+    @Override
+    public List<GetBrancheListResponse> getByNameFirstLetter(String letter) {
+        List<Branche> branches = brancheRepository.findByNameIgnoreCaseStartingWith(letter);
+        List<GetBrancheListResponse> response = new ArrayList<>();
+
+        for (Branche branche:branches) {
+            response.add(new GetBrancheListResponse(branche.getId(),branche.getName(),branche.getAddress(),branche.getManagerName()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetBrancheListResponse> getByManagerBrancheInfo(String managerName) {
+        List<Branche> branches = brancheRepository.findByManagerNameLikeIgnoreCase("%" + managerName + "%");
+        List<GetBrancheListResponse> response = new ArrayList<>();
+
+        for (Branche branche:branches) {
+            response.add(new GetBrancheListResponse(branche.getId(),branche.getName(),branche.getAddress(),branche.getManagerName()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetBrancheListResponse> getWithNoAddress() {
+        return brancheRepository.findWithNoAddress();
+    }
+
+    @Override
+    public List<GetBrancheListResponse> getByAddress(String address) {
+        return brancheRepository.findByAddress(address);
+    }
 }

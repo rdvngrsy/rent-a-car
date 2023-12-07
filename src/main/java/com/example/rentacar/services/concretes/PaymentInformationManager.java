@@ -10,6 +10,7 @@ import com.example.rentacar.services.dtos.responses.paymentInformation.GetPaymen
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,4 +71,38 @@ public class PaymentInformationManager implements PaymentInformationService {
         PaymentInformation paymentInformationToDelete = paymentInformationRepository.findById(id).orElseThrow();
         paymentInformationRepository.delete(paymentInformationToDelete);
     }
+
+    @Override
+    public List<GetPaymentInformationListResponse> getByCardholderNameOrderByCardNumberAsc(String cardholderName) {
+        List<PaymentInformation> paymentInformations = paymentInformationRepository.findByCardholderNameOrderByCardNumberAsc(cardholderName);
+        List<GetPaymentInformationListResponse> response = new ArrayList<>();
+
+        for (PaymentInformation paymentInformation: paymentInformations) {
+            response.add(new GetPaymentInformationListResponse(paymentInformation.getId(),paymentInformation.getCardNumber(),paymentInformation.getCardholderName()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetPaymentInformationListResponse> getByCardNumber(String cardNumber) {
+        List<PaymentInformation> paymentInformations = paymentInformationRepository.findByCardNumber(cardNumber);
+        List<GetPaymentInformationListResponse> response = new ArrayList<>();
+
+        for (PaymentInformation paymentInformation: paymentInformations) {
+            response.add(new GetPaymentInformationListResponse(paymentInformation.getId(),paymentInformation.getCardNumber(),paymentInformation.getCardholderName()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetPaymentInformationListResponse> getBySecurityCode(String securityCode) {
+        return paymentInformationRepository.getBySecurityCode(securityCode);
+    }
+
+    @Override
+    public List<GetPaymentInformationListResponse> getByExpirationDateBefore(LocalDate expirationDate) {
+        return paymentInformationRepository.getByExpirationDateBefore(expirationDate);
+    }
+
+
 }

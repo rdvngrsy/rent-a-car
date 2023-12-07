@@ -15,6 +15,10 @@ Sonrasında her bir entity için **'controllers'** katmanı oluşturuldu ve ekle
 
 Önceki workshop' da oluşturduğum **'controllers'** katmanını  Request - Response pattern uyumlu hale getirdim. Bunun için **'dtos'** adında bir package oluşturdum. Her bir entity için Request - Response işlemlerini gerçekleştirdim. Böylece controller katmanında direk entityler ile bağlantı kurmak yerine, neyi gösterip neyi göstermeyeceğimi ayarlayabildiğim bir yapı oluşturdum.
 
-- **24/11/2023 Workshop:**
+- <a href="https://github.com/rdvngrsy/rent-a-car/commit/f70cb85e18a89bd91af39178e24f76a015f48eff">**24/11/2023 Workshop:**</a>
 
 Bu workshop' da **'services'** katmanını projeme ekledim. Bu projede kötü koddan iyi koda doğru gidildiği için  **'controllers'** katmanında yazdığım kontrolleri **'services'** katmanında yazmam gerektiğini öğrendim. Bunun için Service adıyla Interfaceler oluşturdum. Bu interfaceleri, Manager adıyla java classlarına implement ettim. Sonrasında controllerda yazdığım kodları **'services'** katmanına aktarmış oldum. Böylece kullanıcıyı entities ile direk teması aradan kaldırmış oldum. Bunu da Manager classlarında mapping yaparak sağladım.  
+
+- <a href="">**04/12/2023 Workshop:**</a>
+
+Bu workshop' da projeme her bir entitynin repositorysinde **'Derived'** ve **'JPQL Query'** sorgu örnekleri ekledim. Sonrasında **'services'** katmanında değişikliklerini uyguladım ve **'controllers'** katmanında CRUD işlemlerini uyguladım. Böylece **'Derived'** ve **'JPQL Query'** sorgularını öğrenmiş oldum.

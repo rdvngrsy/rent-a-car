@@ -42,4 +42,24 @@ public class BranchesController {
     public void delete(@PathVariable int id){
         brancheService.delete(id);
     }
+
+    @GetMapping("/getByNameStartingWith")
+    public List<GetBrancheListResponse> getByNameFirstLetter(String letter){
+        return brancheService.getByNameFirstLetter(letter);
+    }
+
+    @GetMapping("/getByManagerBrancheInfo")
+    public List<GetBrancheListResponse> getByManagerBrancheInfo(String managerName){
+        return brancheService.getByManagerBrancheInfo(managerName);
+    }
+
+    @GetMapping("/getWithNoAddress")
+    public List<GetBrancheListResponse> getWithNoAddress(){
+        return brancheService.getWithNoAddress();
+    }
+
+    @GetMapping("/getByAddress")
+    public List<GetBrancheListResponse> getByAddress(String address){
+        return brancheService.getByAddress(address);
+    }
 }

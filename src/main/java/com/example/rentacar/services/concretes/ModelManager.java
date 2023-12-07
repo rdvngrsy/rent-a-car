@@ -66,4 +66,36 @@ public class ModelManager implements ModelService {
         Model modelToDelete = modelRepository.findById(id).orElseThrow();
         modelRepository.delete(modelToDelete);
     }
+
+    @Override
+    public List<GetModelListResponse> getByNameOrderByYearDesc(String name) {
+        List<Model> models = modelRepository.findByNameOrderByYearDesc(name);
+        List<GetModelListResponse> response = new ArrayList<>();
+
+        for (Model model : models) {
+            response.add(new GetModelListResponse(model.getId(),model.getName(),model.getYear()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetModelListResponse> getByYearGreaterThan(int year) {
+        List<Model> models = modelRepository.findByYearGreaterThan(year);
+        List<GetModelListResponse> response = new ArrayList<>();
+
+        for (Model model : models) {
+            response.add(new GetModelListResponse(model.getId(),model.getName(),model.getYear()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetModelListResponse> getModelsByYearRange(int startYear, int endYear) {
+        return modelRepository.getModelsByYearRange(startYear, endYear);
+    }
+
+    @Override
+    public List<GetModelListResponse> getOldestByModel(String model) {
+        return modelRepository.getOldestByModel(model);
+    }
 }

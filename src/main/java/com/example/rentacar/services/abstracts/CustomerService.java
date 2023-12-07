@@ -13,4 +13,12 @@ public interface CustomerService {
     void add(AddCustomerRequest request);
     void update(int id, UpdateCustomerRequest updatedCustomer);
     void delete(int id);
+
+    List<GetCustomerListResponse> getByIdentityNumberFromCustomer(String idNumber);
+    List<GetCustomerListResponse> getByEmailFromCustomer(String email);
+
+    List<GetCustomerListResponse> getCustomersByAddressContaining(String keyword);
+    List<GetCustomerListResponse> getCustomerByFullName(String firstName,String lastName);
+
+
 }

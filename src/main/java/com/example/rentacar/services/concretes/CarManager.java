@@ -5,6 +5,7 @@ import com.example.rentacar.repositories.CarRepository;
 import com.example.rentacar.services.abstracts.CarService;
 import com.example.rentacar.services.dtos.requests.car.AddCarRequest;
 import com.example.rentacar.services.dtos.requests.car.UpdateCarRequest;
+import com.example.rentacar.services.dtos.responses.brand.GetBrandListResponse;
 import com.example.rentacar.services.dtos.responses.car.GetCarListResponse;
 import com.example.rentacar.services.dtos.responses.car.GetCarResponse;
 import lombok.AllArgsConstructor;
@@ -18,24 +19,6 @@ import java.util.List;
 public class CarManager implements CarService {
 
     public final CarRepository carRepository;
-
-    @Override
-    public List<GetCarListResponse> getAll() {
-        List<Car> carList = carRepository.findAll();
-        List<GetCarListResponse> getCarListResponses = new ArrayList<>();
-
-        for (Car car : carList) {
-            GetCarListResponse dto = new GetCarListResponse();
-            dto.setId(car.getId());
-            dto.setLicensePlate(car.getLicensePlate());
-            dto.setFuelType(car.getFuelType());
-            dto.setRentalPrice(car.getRentalPrice());
-            dto.setCurrentStatus(car.getCurrentStatus());
-
-            getCarListResponses.add(dto);
-        }
-        return getCarListResponses;
-    }
 
     @Override
     public GetCarResponse getById(int id) {
@@ -75,4 +58,38 @@ public class CarManager implements CarService {
         Car carToDelete = carRepository.findById(id).orElseThrow();
         carRepository.delete(carToDelete);
     }
+
+
+    @Override
+    public List<GetCarListResponse> getByLicensePlate(String licensePlate) {
+        List<Car> cars = carRepository.findByLicensePlateIgnoreCase(licensePlate);
+        List<GetCarListResponse> response = new ArrayList<>();
+
+        for (Car car: cars) {
+            response.add(new GetCarListResponse(car.getId(),car.getLicensePlate(),car.getFuelType(),car.getRentalPrice(),car.getCurrentStatus()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetCarListResponse> getByRentalPriceBetween(double minPrice, double maxPrice) {
+        List<Car> cars = carRepository.findByRentalPriceBetween(minPrice,maxPrice);
+        List<GetCarListResponse> response = new ArrayList<>();
+
+        for (Car car: cars) {
+            response.add(new GetCarListResponse(car.getId(),car.getLicensePlate(),car.getFuelType(),car.getRentalPrice(),car.getCurrentStatus()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetCarListResponse> getAll() {
+        return carRepository.getAll();
+    }
+
+    @Override
+    public List<GetCarListResponse> getCarByBranche(int brancheId) {
+        return carRepository.getCarByBranche(brancheId);
+    }
+
 }

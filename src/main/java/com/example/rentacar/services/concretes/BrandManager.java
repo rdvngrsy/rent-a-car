@@ -19,19 +19,6 @@ public class BrandManager implements BrandService {
 
     private final BrandRepository brandRepository;
 
-    @Override
-    public List<GetBrandListResponse> getAll() {
-        List<Brand> brandList = brandRepository.findAll();
-        List<GetBrandListResponse> getBrandListResponses = new ArrayList<>();
-
-        for (Brand brand : brandList) {
-            GetBrandListResponse dto = new GetBrandListResponse();
-            dto.setId(brand.getId());
-            dto.setName(brand.getName());
-            getBrandListResponses.add(dto);
-        }
-        return getBrandListResponses;
-    }
 
     @Override
     public GetBrandResponse getById(int id) {
@@ -62,5 +49,39 @@ public class BrandManager implements BrandService {
 
         // yada aynı işlevi yapan bu. Yukarıdaki daha işlevsel kontrol yapabilir.
         //brandRepository.deleteById(id);
+    }
+
+    @Override
+    public List<GetBrandListResponse> getByName(String name,int id) {
+        List<Brand> brands = brandRepository.findByNameLikeOrIdEquals("%"+name+"%",id);
+        List<GetBrandListResponse> response = new ArrayList<>();
+
+        for (Brand brand: brands) {
+            response.add(new GetBrandListResponse(brand.getName()));
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<GetBrandListResponse> getByNameStartingWith(String letter) {
+        List<Brand> brands = brandRepository.findByNameIgnoreCaseStartingWith(letter);
+        List<GetBrandListResponse> response = new ArrayList<>();
+
+        for (Brand brand: brands) {
+            response.add(new GetBrandListResponse(brand.getName()));
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<GetBrandListResponse> getAll() {
+        return brandRepository.getAll();
+    }
+
+    @Override
+    public List<GetBrandListResponse> getAllBrandOrderByAlphabetical() {
+        return brandRepository.getAllBrandOrderByAlphabetical();
     }
 }

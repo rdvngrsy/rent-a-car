@@ -5,12 +5,9 @@ import com.example.rentacar.services.dtos.requests.brand.AddBrandRequest;
 import com.example.rentacar.services.dtos.requests.brand.UpdateBrandRequest;
 import com.example.rentacar.services.dtos.responses.brand.GetBrandListResponse;
 import com.example.rentacar.services.dtos.responses.brand.GetBrandResponse;
-import com.example.rentacar.entities.Brand;
-import com.example.rentacar.repositories.BrandRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,10 +17,6 @@ public class BrandsController {
 
     private final BrandService brandService;
 
-    @GetMapping
-    public List<GetBrandListResponse> getAll(){
-        return brandService.getAll();
-    }
 
     @GetMapping("{id}")
     public GetBrandResponse getById(@PathVariable int id){
@@ -41,10 +34,28 @@ public class BrandsController {
         brandService.update(id, updatedBrand);
     }
 
-
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id) {
         brandService.delete(id);
     }
 
+    @GetMapping("/getByName")
+    public List<GetBrandListResponse> getByName(@RequestParam String name, @RequestParam int id){
+        return brandService.getByName(name,id);
+    }
+
+    @GetMapping("/getByNameStartingWith")
+    public List<GetBrandListResponse> getByNameStartingWith(@RequestParam String letter){
+        return brandService.getByNameStartingWith(letter);
+    }
+
+    @GetMapping("/getAll")
+    public List<GetBrandListResponse> getAll(){
+        return brandService.getAll();
+    }
+
+    @GetMapping("/getAllBrandOrderByAlphabetical")
+    public List<GetBrandListResponse> getAllBrandOrderByAlphabetical(){
+        return brandService.getAllBrandOrderByAlphabetical();
+    }
 }

@@ -44,4 +44,26 @@ public class CustomersController {
     public void delete(@PathVariable int id) {
         customerService.delete(id);
     }
+
+    @GetMapping("/getByIdentityNumberFromCustomer")
+    public List<GetCustomerListResponse> getByIdentityNumberFromCustomer(String idNumber) {
+        return customerService.getByIdentityNumberFromCustomer(idNumber);
+    }
+
+    @GetMapping("/getByEmailFromCustomer")
+    public List<GetCustomerListResponse> getByEmailFromCustomer(String email){
+        return customerService.getByEmailFromCustomer(email);
+    }
+
+    @GetMapping("/getCustomersByAddress")
+    List<GetCustomerListResponse> getCustomersByAddressContaining(String keyword){
+        return customerService.getCustomersByAddressContaining(keyword);
+    }
+
+    @GetMapping("/getCustomerByFullName")
+    List<GetCustomerListResponse> getCustomerByFullName(String firstName,String lastName){
+        return customerService.getCustomerByFullName(firstName, lastName);
+    }
+
+
 }

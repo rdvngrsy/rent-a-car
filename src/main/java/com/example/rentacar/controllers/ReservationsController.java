@@ -9,6 +9,7 @@ import com.example.rentacar.services.dtos.responses.reservation.GetReservationRe
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -18,29 +19,48 @@ public class ReservationsController {
     private final ReservationService reservationService;
 
     @GetMapping
-    public List<GetReservationListResponse> getAll(){
+    public List<GetReservationListResponse> getAll() {
         return reservationService.getAll();
     }
 
     @GetMapping("{id}")
-    public GetReservationResponse getById(@PathVariable int id){
+    public GetReservationResponse getById(@PathVariable int id) {
         return reservationService.getById(id);
     }
 
     @PostMapping
-    public void add(@RequestBody AddReservationRequest request){
+    public void add(@RequestBody AddReservationRequest request) {
         reservationService.add(request);
     }
 
 
     @PutMapping("{id}")
-    public void update(@PathVariable int id, @RequestBody UpdateReservationRequest updatedReservation){
+    public void update(@PathVariable int id, @RequestBody UpdateReservationRequest updatedReservation) {
         reservationService.update(id, updatedReservation);
     }
-
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id) {
         reservationService.delete(id);
+    }
+
+    @GetMapping("/getByStartDateAfter")
+    public List<GetReservationListResponse> getByStartDateAfter(LocalDate startDate) {
+        return reservationService.getByStartDateAfter(startDate);
+    }
+
+    @GetMapping("/getByEndDateBefore")
+    public List<GetReservationListResponse> getByEndDateBefore(LocalDate endDate) {
+        return reservationService.getByEndDateBefore(endDate);
+    }
+
+    @GetMapping("/getByTotalPriceLessThanEqual")
+    public List<GetReservationListResponse> getByTotalPriceLessThanEqual(double totalPrice) {
+        return reservationService.getByTotalPriceLessThanEqual(totalPrice);
+    }
+
+    @GetMapping("/getByTotalPriceGreaterThan")
+    public List<GetReservationListResponse> getByTotalPriceGreaterThan(double totalPrice) {
+        return reservationService.getByTotalPriceGreaterThan(totalPrice);
     }
 }

@@ -32,7 +32,6 @@ public class Branche {
     private String managerName;
 
     @OneToMany(mappedBy = "branche")// Car classında branche attribute na mapleniyor.
-    @JsonIgnore
     private List<Car> cars;
 
 }

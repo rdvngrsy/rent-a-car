@@ -10,6 +10,7 @@ import com.example.rentacar.services.dtos.responses.reservation.GetReservationRe
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,5 +70,35 @@ public class ReservationManager implements ReservationService {
     public void delete(int id) {
         Reservation reservationToDelete = reservationRepository.findById(id).orElseThrow();
         reservationRepository.delete(reservationToDelete);
+    }
+
+    @Override
+    public List<GetReservationListResponse> getByStartDateAfter(LocalDate startDate) {
+        List<Reservation> reservations = reservationRepository.findByStartDateAfter(startDate);
+        List<GetReservationListResponse> response = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            response.add(new GetReservationListResponse(reservation.getId(),reservation.getStartDate(),reservation.getEndDate(),reservation.getTotalPrice()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetReservationListResponse> getByEndDateBefore(LocalDate endDate) {
+        List<Reservation> reservations = reservationRepository.findByEndDateBefore(endDate);
+        List<GetReservationListResponse> response = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            response.add(new GetReservationListResponse(reservation.getId(),reservation.getStartDate(),reservation.getEndDate(),reservation.getTotalPrice()));
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetReservationListResponse> getByTotalPriceLessThanEqual(double totalPrice) {
+        return reservationRepository.getByTotalPriceLessThanEqual(totalPrice);
+    }
+
+    @Override
+    public List<GetReservationListResponse> getByTotalPriceGreaterThan(double totalPrice) {
+        return reservationRepository.getByTotalPriceGreaterThan(totalPrice);
     }
 }

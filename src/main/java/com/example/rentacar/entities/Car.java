@@ -36,7 +36,6 @@ public class Car {
     //Foreign key olan kısıma bunları yazıyoruz.
     @ManyToOne
     @JoinColumn(name = "brand_id")
-    @JsonIgnore
     private Brand brand;
 
     @ManyToOne
@@ -46,7 +45,6 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(name = "branche_id")
-    @JsonIgnore
     private Branche branche;
 
     @OneToMany(mappedBy = "car")// Reservation classında car attribute na mapleniyor.
