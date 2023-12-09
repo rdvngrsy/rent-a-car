@@ -12,6 +12,7 @@ public interface PaymentInformationRepository extends JpaRepository<PaymentInfor
 
     List<PaymentInformation> findByCardholderNameOrderByCardNumberAsc(String cardholderName);
     List<PaymentInformation> findByCardNumber(String cardNumber);
+    boolean existsByCardNumber(String cardNumber);
 
     @Query("SELECT new com.example.rentacar.services.dtos.responses.paymentInformation.GetPaymentInformationListResponse(p.id,p.cardNumber,p.cardholderName) FROM PaymentInformation p WHERE p.securityCode = :securityCode")
     List<GetPaymentInformationListResponse> getBySecurityCode(String securityCode);

@@ -5,6 +5,7 @@ import com.example.rentacar.services.dtos.requests.car.AddCarRequest;
 import com.example.rentacar.services.dtos.requests.car.UpdateCarRequest;
 import com.example.rentacar.services.dtos.responses.car.GetCarListResponse;
 import com.example.rentacar.services.dtos.responses.car.GetCarResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class CarsController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddCarRequest request){
+    public void add(@RequestBody @Valid AddCarRequest request){
         carService.add(request);
     }
 

@@ -47,6 +47,10 @@ public class ModelManager implements ModelService {
 
     @Override
     public void add(AddModelRequest request) {
+        if (modelRepository.existsByNameIgnoreCaseAndYear(request.getName(), request.getYear())){
+            throw new RuntimeException("Girdiğiniz araç modeli ve yılı sistemimizde kayıtlıdır.");
+        }
+
         Model model = new Model();
         model.setName(request.getName());
         model.setYear(request.getYear());

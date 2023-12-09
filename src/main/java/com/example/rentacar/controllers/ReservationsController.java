@@ -6,6 +6,7 @@ import com.example.rentacar.services.dtos.requests.reservation.AddReservationReq
 import com.example.rentacar.services.dtos.requests.reservation.UpdateReservationRequest;
 import com.example.rentacar.services.dtos.responses.reservation.GetReservationListResponse;
 import com.example.rentacar.services.dtos.responses.reservation.GetReservationResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class ReservationsController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddReservationRequest request) {
+    public void add(@RequestBody @Valid AddReservationRequest request) {
         reservationService.add(request);
     }
 

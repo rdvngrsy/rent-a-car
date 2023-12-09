@@ -6,6 +6,7 @@ import com.example.rentacar.services.dtos.requests.branche.AddBrancheRequest;
 import com.example.rentacar.services.dtos.requests.branche.UpdateBrancheRequest;
 import com.example.rentacar.services.dtos.responses.branche.GetBrancheListResponse;
 import com.example.rentacar.services.dtos.responses.branche.GetBrancheResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class BranchesController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddBrancheRequest request){
+    public void add(@RequestBody @Valid AddBrancheRequest request){
         brancheService.add(request);
     }
 
@@ -41,6 +42,11 @@ public class BranchesController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
         brancheService.delete(id);
+    }
+
+    @GetMapping("/getByNameIgnoreCase")
+    public List<GetBrancheListResponse> getByNameIgnoreCase(String name) {
+        return brancheService.getByNameIgnoreCase(name);
     }
 
     @GetMapping("/getByNameStartingWith")

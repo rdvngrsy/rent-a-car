@@ -14,6 +14,8 @@ public interface BrancheService {
     void add(AddBrancheRequest request);
     void update(int id, UpdateBrancheRequest updatedBranche);
     void delete(int id);
+
+    List<GetBrancheListResponse> getByNameIgnoreCase(String name);
     List<GetBrancheListResponse> getByNameFirstLetter(String letter);
     List<GetBrancheListResponse> getByManagerBrancheInfo(String managerName);
     List<GetBrancheListResponse> getWithNoAddress();

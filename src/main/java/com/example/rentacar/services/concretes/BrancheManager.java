@@ -50,6 +50,10 @@ public class BrancheManager implements BrancheService {
 
     @Override
     public void add(AddBrancheRequest request) {
+        if (brancheRepository.existsByNameIgnoreCase(request.getName().trim())){
+            throw new RuntimeException("Aynı isimle iki şube eklenemez.");
+        }
+
         Branche branche = new Branche();
         branche.setName(request.getName());
         branche.setAddress(request.getAddress());
@@ -70,6 +74,17 @@ public class BrancheManager implements BrancheService {
     public void delete(int id) {
         Branche brancheToDelete = brancheRepository.findById(id).orElseThrow();
         brancheRepository.delete(brancheToDelete);
+    }
+
+    @Override
+    public List<GetBrancheListResponse> getByNameIgnoreCase(String name) {
+        List<Branche> branches = brancheRepository.findByNameIgnoreCase(name);
+        List<GetBrancheListResponse> response = new ArrayList<>();
+
+        for (Branche branche:branches) {
+            response.add(new GetBrancheListResponse(branche.getId(),branche.getName(),branche.getAddress(),branche.getManagerName()));
+        }
+        return response;
     }
 
     @Override

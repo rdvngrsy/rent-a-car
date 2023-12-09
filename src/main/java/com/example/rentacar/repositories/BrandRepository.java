@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface BrandRepository extends JpaRepository<Brand,Integer> {
 
-    List<Brand> findByNameLikeOrIdEquals(String name,int id);
+    List<Brand> findByNameIgnoreCase(String name);
     List<Brand> findByNameIgnoreCaseStartingWith(String letter);
+    boolean existsByNameIgnoreCase(String name);
 
     @Query("Select new com.example.rentacar.services.dtos.responses.brand.GetBrandListResponse(b.name) from Brand b")
     List<GetBrandListResponse> getAll();

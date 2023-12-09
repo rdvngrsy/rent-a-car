@@ -30,6 +30,10 @@ public class BrandManager implements BrandService {
 
     @Override
     public void add(AddBrandRequest request) {
+        if (brandRepository.existsByNameIgnoreCase(request.getName().trim())){
+            throw new RuntimeException("Aynı isimle iki marka eklenemez.");
+        }
+
         Brand brand = new Brand();
         brand.setName(request.getName());
         brandRepository.save(brand);
@@ -52,8 +56,8 @@ public class BrandManager implements BrandService {
     }
 
     @Override
-    public List<GetBrandListResponse> getByName(String name,int id) {
-        List<Brand> brands = brandRepository.findByNameLikeOrIdEquals("%"+name+"%",id);
+    public List<GetBrandListResponse> getByName(String name) {
+        List<Brand> brands = brandRepository.findByNameIgnoreCase(name);
         List<GetBrandListResponse> response = new ArrayList<>();
 
         for (Brand brand: brands) {

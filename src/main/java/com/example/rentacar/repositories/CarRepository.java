@@ -12,6 +12,7 @@ public interface CarRepository extends JpaRepository<Car,Integer> {
 
     List<Car> findByLicensePlateIgnoreCase(String licensePlate);
     List<Car> findByRentalPriceBetween(double minPrice, double maxPrice);
+    boolean existsByLicensePlateIgnoreCase(String licensePlate);
 
     @Query("Select new com.example.rentacar.services.dtos.responses.car.GetCarListResponse(c.id, c.licensePlate, c.fuelType, c.rentalPrice, c.currentStatus, new com.example.rentacar.services.dtos.responses.brand.GetBrandListResponse(b.name), new com.example.rentacar.services.dtos.responses.branche.GetBrancheListResponse(br.id,br.name,br.address,br.managerName)) " +
            "From Car c INNER JOIN c.brand b INNER JOIN c.branche br ")

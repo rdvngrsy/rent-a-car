@@ -9,8 +9,10 @@ import java.util.List;
 
 public interface BrancheRepository extends JpaRepository<Branche,Integer> {
 
+    List<Branche> findByNameIgnoreCase(String name);
     List<Branche> findByNameIgnoreCaseStartingWith(String letter);
     List<Branche> findByManagerNameLikeIgnoreCase(String managerName);
+    boolean existsByNameIgnoreCase(String name);
 
     // Belirli bir adrese sahip olmayan şubeleri getirme
     @Query("SELECT new com.example.rentacar.services.dtos.responses.branche.GetBrancheListResponse(b.id, b.name, b.address, b.managerName) FROM Branche b WHERE b.address IS NULL OR b.address = ''")

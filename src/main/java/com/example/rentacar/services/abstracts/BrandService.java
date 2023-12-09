@@ -12,7 +12,7 @@ public interface BrandService {
     void add(AddBrandRequest request);
     void update(int id,UpdateBrandRequest updatedBrand);
     void delete(int id);
-    List<GetBrandListResponse> getByName(String name,int id);
+    List<GetBrandListResponse> getByName(String name);
     List<GetBrandListResponse> getByNameStartingWith(String letter);
     List<GetBrandListResponse> getAll();
     List<GetBrandListResponse> getAllBrandOrderByAlphabetical();

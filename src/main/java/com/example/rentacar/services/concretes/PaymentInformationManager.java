@@ -48,6 +48,10 @@ public class PaymentInformationManager implements PaymentInformationService {
 
     @Override
     public void add(AddPaymentInformationRequest request) {
+        if (paymentInformationRepository.existsByCardNumber(request.getCardNumber())){
+            throw new RuntimeException("Girdiğiniz kart numarası sistemde kayıtlıdır.");
+        }
+
         PaymentInformation paymentInformation = new PaymentInformation();
         paymentInformation.setCardNumber(request.getCardNumber());
         paymentInformation.setExpirationDate(request.getExpirationDate());

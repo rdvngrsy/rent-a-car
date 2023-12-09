@@ -6,6 +6,7 @@ import com.example.rentacar.services.dtos.requests.paymentInformation.AddPayment
 import com.example.rentacar.services.dtos.requests.paymentInformation.UpdatePaymentInformationRequest;
 import com.example.rentacar.services.dtos.responses.paymentInformation.GetPaymentInformationListResponse;
 import com.example.rentacar.services.dtos.responses.paymentInformation.GetPaymentInformationResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class PaymentInformationsController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddPaymentInformationRequest request) {
+    public void add(@RequestBody @Valid AddPaymentInformationRequest request) {
         paymentInformationService.add(request);
     }
 

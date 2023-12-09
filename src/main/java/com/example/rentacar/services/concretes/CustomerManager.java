@@ -53,6 +53,10 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void add(AddCustomerRequest request) {
+        if (customerRepository.existsByIdentityNumber(request.getIdentityNumber())){
+            throw new RuntimeException("Girdiğiniz TC numarası sistemimizde kayıtlıdır.");
+        }
+
         Customer customer = new Customer();
         customer.setFirstName(request.getFirstName());
         customer.setLastName(request.getLastName());

@@ -35,6 +35,10 @@ public class CarManager implements CarService {
 
     @Override
     public void add(AddCarRequest request) {
+        if (carRepository.existsByLicensePlateIgnoreCase(request.getLicensePlate())){
+            throw new RuntimeException("Girdiğiniz plaka sistemimizde kayıtlıdır.");
+        }
+
         Car car = new Car();
         car.setLicensePlate(request.getLicensePlate());
         car.setFuelType(request.getFuelType());

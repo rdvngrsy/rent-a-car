@@ -11,6 +11,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
 
     List<Customer> findByIdentityNumberLike(String idNumber);
     List<Customer> findByEmailLikeIgnoreCase(String email);
+    boolean existsByIdentityNumber(String idNumber);
 
     @Query("SELECT new com.example.rentacar.services.dtos.responses.customer.GetCustomerListResponse(c.id,c.firstName,c.lastName,c.email,c.phone,c.address) FROM Customer c WHERE LOWER(c.address) LIKE LOWER(concat('%', :keyword, '%'))")
     List<GetCustomerListResponse> getCustomersByAddressContaining(String keyword);

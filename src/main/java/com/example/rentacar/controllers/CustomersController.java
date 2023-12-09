@@ -6,6 +6,7 @@ import com.example.rentacar.services.dtos.requests.customer.AddCustomerRequest;
 import com.example.rentacar.services.dtos.requests.customer.UpdateCustomerRequest;
 import com.example.rentacar.services.dtos.responses.customer.GetCustomerListResponse;
 import com.example.rentacar.services.dtos.responses.customer.GetCustomerResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class CustomersController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddCustomerRequest request){
+    public void add(@RequestBody @Valid AddCustomerRequest request){
        customerService.add(request);
     }
 
